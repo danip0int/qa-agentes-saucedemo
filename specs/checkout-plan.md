@@ -36,8 +36,8 @@ Validate the SauceDemo checkout journey from the logged-in inventory state suppl
   1. From a fresh inventory page, add Sauce Labs Backpack ($29.99) and Sauce Labs Bike Light ($9.99) to the cart.
     - expect: The cart badge shows 2.
   2. Open the cart and select Checkout.
-    - expect: Both expected products are listed once with quantity 1 and their correct prices.
-  3. Enter valid first name, last name, and postal code, then select Continue.
+        - expect: The cart lists both products, each with quantity 1: Sauce Labs Backpack ($29.99) and Sauce Labs Bike Light ($9.99).
+  3. Enter First Name Taylor, Last Name Morgan, and Zip/Postal Code 90210, then select Continue.
     - expect: The overview lists both products with the correct quantities and prices.
     - expect: Item total is $39.98, tax is $3.20, and total is $43.18.
   4. Select Finish.
@@ -50,12 +50,12 @@ Validate the SauceDemo checkout journey from the logged-in inventory state suppl
 **Steps:**
   1. From a fresh inventory page, add a product, open the cart, and select Checkout.
     - expect: The checkout information form has First Name, Last Name, and Zip/Postal Code inputs.
-  2. Leave all fields blank and select Continue.
-    - expect: Checkout does not advance and an error indicates that First Name is required.
+   2. Leave all fields blank and select Continue.
+    - expect: Checkout does not advance and the error message "Error: First Name is required" is displayed.
   3. Enter a first name only and select Continue.
-    - expect: Checkout does not advance and an error indicates that Last Name is required.
+    - expect: Checkout does not advance and the error message "Error: Last Name is required" is displayed.
   4. Enter a last name as well, leave Zip/Postal Code blank, and select Continue.
-    - expect: Checkout does not advance and an error indicates that Zip/Postal Code is required.
+    - expect: Checkout does not advance and the error message "Error: Postal Code is required" is displayed.
   5. Enter a postal code and select Continue.
     - expect: The form accepts the completed required fields and advances to Checkout: Overview.
 
@@ -69,8 +69,8 @@ Validate the SauceDemo checkout journey from the logged-in inventory state suppl
   2. Select Checkout, then select Cancel on the checkout information page.
     - expect: The user returns to the cart.
     - expect: The backpack remains in the cart and the badge still shows 1.
-  3. Select Checkout again, enter valid first name, last name, and postal code, and select Continue.
-    - expect: The overview shows the backpack with the expected item total, tax, and total.
+  3. Select Checkout again, enter First Name Taylor, Last Name Morgan, and Zip/Postal Code 90210, then select Continue.
+    - expect: The overview shows the backpack with the expected Item total: $29.99, Tax: $2.40, and Total: $32.39.
   4. Select Finish.
     - expect: The order completes successfully and the completion confirmation is displayed.
 
@@ -83,7 +83,7 @@ Validate the SauceDemo checkout journey from the logged-in inventory state suppl
     - expect: The cart lists both products and the badge shows 2.
   2. Remove the Sauce Labs Backpack from the cart.
     - expect: The backpack is absent, the Bike Light remains with quantity 1, and the badge shows 1.
-  3. Select Checkout, provide valid first name, last name, and postal code, and select Continue.
+  3. Select Checkout, enter First Name Taylor, Last Name Morgan, and Zip/Postal Code 90210, then select Continue.
     - expect: The overview contains only Sauce Labs Bike Light.
     - expect: Item total is $9.99, tax is $0.80, and total is $10.79.
   4. Select Finish.
