@@ -13,10 +13,13 @@ test.describe('Checkout', () => {
     await expect(page).toHaveURL(/inventory/);
 
     // 2. Add Sauce Labs Backpack as the single product in the order
-    await page.getByRole('button', { name: 'Add to cart', exact: true }).first().click();
+    await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
+    await expect(page.locator('[data-test="remove-sauce-labs-backpack"]')).toBeVisible();
+    await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
 
     // 3. Open the cart to verify the selected product before checkout
     await page.getByRole('button', { name: 'Cart, 1 items' }).click();
+    await expect(page.locator('[data-test="item-quantity"]')).toHaveText('1');
     await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
     await expect(page.getByText('$29.99')).toBeVisible();
 
