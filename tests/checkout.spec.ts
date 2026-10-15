@@ -16,6 +16,7 @@ test.describe('Checkout', () => {
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
     await expect(page.locator('[data-test="remove-sauce-labs-backpack"]')).toBeVisible();
     await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
+    
 
     // 3. Open the cart to verify the selected product before checkout
     await page.getByRole('button', { name: 'Cart, 1 items' }).click();
@@ -25,6 +26,7 @@ test.describe('Checkout', () => {
 
     // 4. Proceed from the cart to checkout information
     await page.getByRole('button', { name: 'Checkout' }).click();
+    await expect(page.locator('[data-test="title"]')).toHaveText('Checkout: Your Information');
 
     // 5. Enter the customer's first name
     await page.getByRole('textbox', { name: 'First Name' }).fill('Jane');
@@ -60,5 +62,6 @@ test.describe('Checkout', () => {
     await expect(page.locator('[data-test="complete-text"]')).toHaveText(
       'Your order has been dispatched, and will arrive just as fast as the pony can get there!',
     );
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveCount(0);
   });
 });
