@@ -29,19 +29,21 @@ test.describe('Checkout', () => {
     await expect(page.locator('[data-test="title"]')).toHaveText('Checkout: Your Information');
 
     // 5. Enter the customer's first name
-    await page.getByRole('textbox', { name: 'First Name' }).fill('Jane');
+    await page.getByRole('textbox', { name: 'First Name' }).fill('Taylor');
 
     // 6. Enter the customer's last name
-    await page.getByRole('textbox', { name: 'Last Name' }).fill('Doe');
+    await page.getByRole('textbox', { name: 'Last Name' }).fill('Morgan');
 
     // 7. Enter the customer's postal code
-    await page.getByRole('textbox', { name: 'Zip/Postal Code' }).fill('12345');
+    await page.getByRole('textbox', { name: 'Zip/Postal Code' }).fill('90210');
 
     // 8. Continue to review the order
     await page.getByRole('button', { name: 'Continue' }).click();
 
-    // 9. Verify the order overview contains the selected backpack
+    // 9. Verify the order overview contains the selected backpack, payment and shipping information
     await expect(page.locator('[data-test="item-4-title-link"]')).toHaveText('Sauce Labs Backpack');
+    await expect(page.locator('[data-test="payment-info-value"]')).toHaveText('SauceCard #31337');
+    await expect(page.locator('[data-test="shipping-info-value"]')).toHaveText('Free Pony Express Delivery!');
 
     // 10. Verify the item subtotal matches the backpack price
     await expect(page.locator('[data-test="subtotal-label"]')).toHaveText('Item total: $29.99');
