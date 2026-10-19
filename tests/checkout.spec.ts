@@ -5,12 +5,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Checkout', () => {
   test('Complete checkout and order a single product', async ({ page }) => {
-    // 1. Log in (same steps as tests/seed.spec.ts)
-    await page.goto('https://www.saucedemo.com/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL(/inventory/);
+    // 1. Open the inventory page (already logged in with the saved session)
+    await page.goto('https://www.saucedemo.com/inventory.html');
 
     // 2. Add Sauce Labs Backpack as the single product in the order
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
