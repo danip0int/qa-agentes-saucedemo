@@ -34,10 +34,18 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+  // 1. Proyecto de setup: corre el login una vez y guarda la sesión
+  { name: 'setup', testMatch: /.*\.setup\.ts/ },
+
+  // 2. Tus tests: arrancan con la sesión guardada
+  {
+    name: 'chromium',
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'playwright/.auth/user.json',
     },
+    dependencies: ['setup'],
+  },
 
     // {
     //   name: 'firefox',

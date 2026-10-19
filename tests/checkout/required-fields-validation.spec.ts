@@ -2,11 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Checkout flow', () => {
   test('Reject checkout information when a required field is missing', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL(/inventory/);
+        // Open the inventory page (already logged in with the saved session)
+    await page.goto('https://www.saucedemo.com/inventory.html');
 
     // 1. From a fresh inventory page, add a product, open the cart, and select Checkout.
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();

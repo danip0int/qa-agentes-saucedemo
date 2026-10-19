@@ -5,12 +5,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Checkout flow', () => {
   test('Verify multi-item cart and calculated checkout totals', async ({ page }) => {
-    // Log in to establish the standalone clean-session test state
-    await page.goto('https://www.saucedemo.com/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL(/inventory/);
+    // Open the inventory page (already logged in with the saved session)
+    await page.goto('https://www.saucedemo.com/inventory.html');
 
     // Add Sauce Labs Backpack priced at $29.99 to the cart
     await page.getByRole('button', { name: 'Add to cart', exact: true }).first().click();
