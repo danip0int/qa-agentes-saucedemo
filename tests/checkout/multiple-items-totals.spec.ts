@@ -2,6 +2,7 @@
 // seed: tests/seed.spec.ts
 
 import { test, expect } from '@playwright/test';
+import { CheckoutInformationPage } from '../../pages/CheckoutInformationPage';
 
 test.describe('Checkout flow', () => {
   test('Verify multi-item cart and calculated checkout totals', async ({ page }) => {
@@ -30,12 +31,11 @@ test.describe('Checkout flow', () => {
     await page.getByRole('button', { name: 'Checkout' }).click();
 
     // Enter customer information
-    await page.getByRole('textbox', { name: 'First Name' }).fill('Taylor');
-    await page.getByRole('textbox', { name: 'Last Name' }).fill('Morgan');
-    await page.getByRole('textbox', { name: 'Zip/Postal Code' }).fill('90210');
+    const infoPage = new CheckoutInformationPage(page);
+    await infoPage.fillInformation('Taylor', 'Morgan', '90210');
 
     // Continue to the multi-item order overview
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await infoPage.continueButton.click();
 
     // Verify both products and their prices in the overview
     await expect(page.locator('[data-test="item-4-title-link"]')).toHaveText('Sauce Labs Backpack');
