@@ -65,10 +65,17 @@ Para ver el reporte:
 npx playwright show-report
 ```
 
+## Mejoras hechas a mano
+
+Después de generar los tests con los agentes, los revisé y mejoré:
+
+- **Test 1.1 (compra con un producto):** agregué las verificaciones que el agente había salteado: botón "Remove", contador y cantidad del carrito, título del formulario, información de pago y envío, y contador vacío al final y reemplacé un locator que dependía del orden de la lista por uno específico de la mochila en este caso específico.
+- **Login reutilizable:** un proyecto de *setup* hace el login una sola vez y guarda la sesión (`storageState`). Los tests de checkout la reutilizan en lugar de loguearse en cada uno. En pruebas locales, la suite pasó de 25 segundos a 14 segundos apróximadamente (en 3 mediciones, el tiempo varía dado los componentes limitantes de mi PC).
+- **CI:** los tests corren automáticamente en GitHub Actions en cada push y pull request a `main`.
+
 ## Limitaciones conocidas y próximos pasos
 
-- El test 1.1 no verifica todo lo que pide el plan (por ejemplo, el cambio del botón a "Remove", el contador del carrito y la cantidad en el carrito).
-- Algunos tests usan `.first()` para agregar productos, lo que depende del orden de la lista. Conviene apuntar a productos específicos.
-- Los escenarios 1.4 (cancelar y retomar la compra) y 1.5 (quitar un producto) quedaron en el plan, sin automatizar.
-- Pendiente: separar las validaciones del escenario 1.3 en un test por regla y reutilizar la sesión de login en vez de repetirla en cada test.
-- Pendiente: ejecutar las pruebas automáticamente con GitHub Actions.
+- Los tests 1.2 y 1.3 todavía no tienen todas las verificaciones del plan (por ejemplo, la cantidad en el carrito) y el 1.2 usa `.first()` para agregar productos, lo que depende del orden de la lista.
+- Las validaciones del escenario 1.3 están en un solo test; conviene separarlas en un test por regla.
+- `seed.spec.ts` sigue haciendo su propio login, porque es el punto de partida de los agentes.
+- Los escenarios 1.4 y 1.5 quedaron en el plan, sin automatizar.
