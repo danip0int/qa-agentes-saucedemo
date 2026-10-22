@@ -2,6 +2,7 @@
 // seed: tests/seed.spec.ts
 
 import { test, expect } from '@playwright/test';
+import { CheckoutInformationPage } from '../pages/CheckoutInformationPage';
 
 test.describe('Checkout', () => {
   test('Complete checkout and order a single product', async ({ page }) => {
@@ -22,19 +23,10 @@ test.describe('Checkout', () => {
 
     // 4. Proceed from the cart to checkout information
     await page.getByRole('button', { name: 'Checkout' }).click();
-    await expect(page.locator('[data-test="title"]')).toHaveText('Checkout: Your Information');
-
-    // 5. Enter the customer's first name
-    await page.getByRole('textbox', { name: 'First Name' }).fill('Taylor');
-
-    // 6. Enter the customer's last name
-    await page.getByRole('textbox', { name: 'Last Name' }).fill('Morgan');
-
-    // 7. Enter the customer's postal code
-    await page.getByRole('textbox', { name: 'Zip/Postal Code' }).fill('90210');
-
-    // 8. Continue to review the order
-    await page.getByRole('button', { name: 'Continue' }).click();
+    const infoPage = new CheckoutInformationPage(page);
+    await expect(infoPage.title).toHaveText('Checkout: Your Information');
+    await infoPage.fillInformation('Taylor', 'Morgan', '90210');
+    await infoPage.continueButton.click();
 
     // 9. Verify the order overview contains the selected backpack, payment and shipping information
     await expect(page.locator('[data-test="item-4-title-link"]')).toHaveText('Sauce Labs Backpack');
