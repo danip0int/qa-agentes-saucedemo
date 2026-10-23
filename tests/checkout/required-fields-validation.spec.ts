@@ -30,7 +30,7 @@ test.describe('Checkout flow', () => {
     await infoPage.firstName.fill('Jane');
     await infoPage.continueButton.click();
     await expect(page).toHaveURL(/checkout-step-one/);
-    await expect(infoPage.error).toContainText('Error: Last Name is wrong');
+    await expect(infoPage.error).toContainText('Error: Last Name is required');
   });
 
   test('Rejects the form when the postal code is missing', async ({ page }) => {
