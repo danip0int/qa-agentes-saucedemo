@@ -9,6 +9,7 @@ test.describe('Checkout flow', () => {
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
     await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
     await page.locator('[data-test="shopping-cart-link"]').click();
+        await expect(page.locator('[data-test="title"]')).toHaveText('Your Cart');
     await expect(page.getByRole('button', { name: 'View details for Sauce Labs Backpack' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'View details for Sauce Labs Bike Light' })).toBeVisible();
     await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('2');
